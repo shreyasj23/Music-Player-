@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <div class="main_div">
+       <div class="music_container">
+           <h2 id="title">Elahi</h2>
+           <h3 id="artist">Ranbeer</h3>
+           <div class="img_container">
+               <img src="img/shrey13.jpg" alt="gana">
+               <audio src="music/shrey13.mp3"></audio>
+               <!-- controls -->
+               <div class="music_controls">
+                <i class="fas fa-backward" id="prev" title="Previous"></i>
+                <i class="fas fa-play main_button" id="play" title="Play"></i>
+                <i class="fas fa-forward" id="next" title="Next"></i>
+               </div>
+           </div>
+       </div>
+   </div> 
+   <script >
+       //callig dom
+      const music=document.querySelector('audio');
+      const img=document.querySelector('img')
+      const play=document.getElementById('play');    
+      const title=document.getElementById('title');
+      const artist=document.getElementById('artist');
+      const prev=document.getElementById('prev');
+      const next=document.getElementById('next');
+
+      const songs = [
+          {
+          name:"shrey11",
+          title:"Elahi",
+          artist:"Ranbeer",
+      },
+      {
+        name:"shrey12",
+          title:"Safarnama",
+          artist: "Ran",
+      },
+      {
+      name:"shrey13",
+          title:"Safer",
+          artist:"Ranveer",
+      },
+      {
+      name:"shrey14",
+          title:"Zindagi",
+          artist:"Hritik",
+      },
+      { name:"shrey15",
+          title:"Zindagiii",
+          artist:"Sushant",
+      },
+    ];
+      let isPlaying=false;
+        //for play
+        const playMusic= () => {
+        isPlaying = true;
+        music.play();
+        play.classList.replace('fa-play','fa-pause');
+        img.classList.add('anime');
+        };
+        //for pause
+        const pauseMusic = ()=>{
+        isPlaying=false;
+        music.pause();
+        play.classList.replace('fa-pause','fa-play');
+        img.classList.remove('anime');
+     };
+     //add event
+     play.addEventListener('click',()=>{
+         if(isPlaying){
+             pauseMusic();
+         }else{
+             playMusic();
+         }
+     });
+     //changing music
+     const loadSong=(songs)=>{
+        title.textContent=songs.title;
+        artist.textContent=songs.artist;
+        music.src ="music/" + songs.name + ".mp3";
+        img.src = "img/" + songs.name + ".jpg";
+     };
+      songIndex = 0; 
+    // loadSong(songs[4]);
+    const nextSong = () => {
+        songIndex = (songIndex + 1) % songs.length;
+        loadSong(songs[songIndex]);
+        playMusic();
+    }
+    const prevSong = () => {
+        songIndex = (songIndex -1 + songs.length) % songs.length;
+        loadSong(songs[songIndex]);
+        playMusic();        
+    }
+    next.addEventListener("click",nextSong);
+    prev.addEventListener("click",prevSong);
+   </script>
+</body>
+</html>
